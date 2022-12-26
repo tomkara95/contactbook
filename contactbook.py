@@ -122,7 +122,14 @@ while exitflag == False:
                 print("Contact Not Found!")
 
         if choice == 5:
-            print("ALL CONTACTS :  \n")    
+            print("ALL CONTACTS :  \n")   
+            sqlall = "SELECT * FROM contactsbook" 
+            mycursor.execute(sqlall)
+            myresult = mycursor.fetchall()
+            for row in myresult:
+                print(row)
+                print("\n")
+
 
     exittemp= True
     while exittemp==True:
