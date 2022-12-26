@@ -19,8 +19,9 @@ while exitflag == False:
         print("2.Call Entry")
         print("3.Modify Entry")
         print("4.Delete Entry")
-        choice = int (input("Select 1 2 3 or 4: "))
-        if (choice == 1 or choice == 2 or choice == 3 or choice == 4):
+        print("5.Show all contacts")
+        choice = int (input("Select 1 2 3 4 or 5: "))
+        if (choice == 1 or choice == 2 or choice == 3 or choice == 4 or choice ==5):
             choiceflag=False 
         else:
             print("Not accepted choice, ")    
@@ -31,6 +32,8 @@ while exitflag == False:
             print("New contact : ")
             x = input("LastName : ")
             y = input("FirstName : ")
+            x1 = x.capitalize()
+            y1 = y.capitalize()
             sqlentry = "SELECT * FROM contactsbook WHERE Lastname = %s and Firstname = %s"
             dr = (x,y, )
             mycursor.execute(sqlentry,dr)
@@ -40,8 +43,9 @@ while exitflag == False:
             else:
                 z = input("PhoneNumber : ")
                 c = input("Email : ")
+                c1 = c.lower()
                 sqlentry1 = "INSERT INTO contactsbook(Lastname,Firstname,Phonenumber,Email) VALUES (%s , %s, %s, %s)"
-                val = (x,y,z,c)
+                val = (x1,y1,z,c1)
                 mycursor.execute(sqlentry1,val)
                 mydb.commit()
                 print("new entry made successfully!")
@@ -53,8 +57,10 @@ while exitflag == False:
             while flag2== True:
                 user_input = input ("Contact search Lastname : ")
                 user_input2 = input ("Contact's Firstname: ")
+                u1 = user_input.capitalize()
+                u2 = user_input.capitalize()
                 sql = "SELECT * FROM contactsbook WHERE Lastname = %s and Firstname = %s "
-                old = (user_input,user_input2, )
+                old = (u1,u2, )
                 mycursor.execute(sql,old)
                 myresult2 = mycursor.fetchall()
                 if not myresult2:
@@ -67,8 +73,10 @@ while exitflag == False:
             print('give an existing account: ')
             x = input("Lastname: ")
             y = input("Firstname: ")
+            x2 = x.capitalize()
+            y2 = y.capitalize()
             sql = "SELECT * FROM contactsbook WHERE Lastname = %s and Firstname= %s"
-            adr = (x,y, )
+            adr = (x2,y2, )
 
             mycursor.execute(sql, adr)
 
@@ -77,13 +85,14 @@ while exitflag == False:
             if myresult3:
                 z = input("NewPhonenumber: ")
                 sql = "UPDATE contactsbook SET Phonenumber = %s  WHERE Lastname = %s and Firstname= %s "
-                val = (z,x,y)
+                val = (z,x2,y2)
                 mycursor.execute(sql, val)
                 mydb.commit()
                 print("Phone changed! ")
                 c = input("New Email: ")
+                c1 = c.lower()
                 sql1 = "UPDATE contactsbook SET Email = %s  WHERE Lastname = %s and Firstname= %s "
-                val2 = (c,x,y)
+                val2 = (c1,x2,y2)
                 mycursor.execute(sql1, val2)
                 mydb.commit()
                 print("Email changed! ")
@@ -95,14 +104,16 @@ while exitflag == False:
             print("Delete contact : ")
             x = input("LastName : ")
             y = input("FirstName : ")
+            x1 = x.capitalize()
+            y1 = y.capitalize()
             sqlentry = "SELECT * FROM contactsbook WHERE Lastname = %s and Firstname = %s"
-            dr = (x,y, )
+            dr = (x1,y1, )
             mycursor.execute(sqlentry,dr)
             myresult4 = mycursor.fetchall()
             if myresult4:
                 print("contact exists")
                 sqldel = "DELETE FROM contactsbook WHERE Lastname = %s and Firstname = %s "
-                de = (x,y)
+                de = (x1,y1)
                 mycursor.execute(sqldel,de)
                 mydb.commit()
                 print("Contact Deleted! ")
@@ -110,7 +121,8 @@ while exitflag == False:
             else:
                 print("Contact Not Found!")
 
-            
+        if choice == 5:
+            print("ALL CONTACTS :  \n")    
 
     exittemp= True
     while exittemp==True:
